@@ -15,3 +15,5 @@ print("pandas version:", pd.__version__)
 print("Matplotlib version:", matplotlib.__version__)
 print("Flask version:", md.version("flask"))
 print("boto3 version:", boto3.__version__)
+
+print("Test Completed Successfully")
