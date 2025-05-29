@@ -1,0 +1,42 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
+        "python.pythonPath": "${workspaceFolder}/venv/bin/python",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.linting.pylintPath": "${workspaceFolder}/venv/bin/pylint",
+        "editor.formatOnSave": true,
+        "files.exclude": {
+            "**/__pycache__": true,
+            "**/*.pyc": true,
+            "data/": true,
+            "models/": true,
+            "venv/": true
+        },
+        "terminal.integrated.defaultProfile.windows": "Command Prompt",
+        "terminal.integrated.env.windows": {
+            "PATH": "${workspaceFolder}/venv/Scripts;${env:PATH}"
+        },
+        "terminal.integrated.env.linux": {
+            "PATH": "${workspaceFolder}/venv/bin:${env:PATH}"
+        },
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-toolsai.jupyter",
+            "amazonwebservices.aws-toolkit-vscode",
+            "dsznajder.es7-react-js-snippets",
+            "dbaeumer.vscode-eslint",
+            "eamodio.gitlens"
+        ]
+    }
+}
