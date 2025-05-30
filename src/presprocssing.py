@@ -6,42 +6,48 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 # Configuration
-DATA_DIR = Path("../data")  # Path to Sentinel-2 images
+DATA_DIR = Path("../data")  # Path to downloaded GeoTIFF images
 OUTPUT_DIR = Path("../data/preprocessed")  # Where to save preprocessed data
 IMG_SIZE = (128, 128)  # Target image size for CNN
 SPLIT_RATIO = 0.2  # Train-test split ratio
 
-def load_sentinel2_image(image_dir):
+def load_images_and_labels(data_dir, labels_file=None):
     """
-    Load Sentinel-2 RGB bands (B4, B3, B2) from a .SAFE directory.
-    Assumes Level-2A product with 10m resolution bands.
+    Load GeoTIFF images and labels from the data directory.
+    If labels_file is provided, load labels from CSV; otherwise, infer from filenames.
     """
-    # Find the 10m resolution bands directory
-    r10m_dir = list(image_dir.glob("GRANULE/*/IMG_DATA/R10m"))[0]
+    images = []
+    labels = []
     
-    # Load RGB bands (B4: red, B3: green, B2: blue)
-    b4_path = next(r10m_dir.glob("*_B04_10m.jp2"))  # Red
-    b3_path = next(r10m_dir.glob("*_B03_10m.jp2"))  # Green
-    b2_path = next(r10m_dir.glob("*_B02_10m.jp2"))  # Blue
+    # Check if a labels CSV exists
+    if labels_file and labels_file.exists():
+        df = pd.read_csv(labels_file)
+        for _, row in df.iterrows():
+            img_path = data_dir / row['image_name']
+            if img_path.exists():
+                img = cv2.imread(str(img_path), cv2.IMREAD_COLOR)
+                if img is not None:
+                    images.append(img)
+                    labels.append(row['debris'])  # 1 for debris, 0 for no debris
+    else:
+        # Load GeoTIFF images and infer labels from filenames
+        for img_path in data_dir.glob("*.tif"):
+            img = cv2.imread(str(img_path), cv2.IMREAD_COLOR)
+            if img is not None:
+                images.append(img)
+                label = 1 if "debris" in img_path.stem.lower() else 0  # Placeholder
+                labels.append(label)
     
-    # Read bands using OpenCV
-    b4 = cv2.imread(str(b4_path), cv2.IMREAD_GRAYSCALE)
-    b3 = cv2.imread(str(b3_path), cv2.IMREAD_GRAYSCALE)
-    b2 = cv2.imread(str(b2_path), cv2.IMREAD_GRAYSCALE)
-    
-    # Stack bands into an RGB image
-    img = np.stack([b4, b3, b2], axis=-1)
-    return img
+    return images, labels
 
 def preprocess_image(img, img_size=IMG_SIZE):
     """
-    Preprocess a single image: resize, normalize, and convert to RGB.
+    Preprocess a single image: resize, normalize.
     """
     # Resize image
     img = cv2.resize(img, img_size, interpolation=cv2.INTER_AREA)
-    # Ensure RGB format (already in RGB from Sentinel-2 bands)
     # Normalize pixel values to [0, 1]
-    img = img.astype(np.float32) / 65535.0  # Sentinel-2 Level-2A values range 0-65535
+    img = img.astype(np.float32) / 65535.0  # GEE Sentinel-2 values range 0-65535
     return img
 
 def augment_image(img):
@@ -69,20 +75,18 @@ def main():
     # Create output directory
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
-    # Load images (assuming .SAFE directories in data/)
-    images = []
-    labels = []  # Placeholder: you'll need to label images (e.g., 1 for debris, 0 for no debris)
+    # Load images
+    images, labels = load_images_and_labels(DATA_DIR)
     
-    for safe_dir in DATA_DIR.glob("S2*.SAFE"):
-        img = load_sentinel2_image(safe_dir)
+    # Preprocess and augment
+    processed_images = []
+    for img in images:
         img = preprocess_image(img)
         img = augment_image(img)
-        images.append(img)
-        # Simulate labels (replace with actual labels)
-        labels.append(1 if "debris" in str(safe_dir).lower() else 0)  # Placeholder
+        processed_images.append(img)
     
     # Convert to numpy arrays
-    images = np.array(images)
+    images = np.array(processed_images)
     labels = np.array(labels)
     
     # Train-test split
