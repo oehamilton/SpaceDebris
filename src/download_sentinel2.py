@@ -19,12 +19,35 @@ from pathlib import Path        # Ensure you have the pathlib library installed
 ee.Initialize(project='spacedebris-gee')  # Replace with your Project ID
 
 # Define a grid of smaller AOIs (0.2° x 0.2° each)
-aoi_grid = [
-    [4.8, 25.0, 5.0, 25.2],  # First tile
-    [4.6, 25.0, 4.8, 25.2],  # Second tile (shifted east)
-    [4.8, 25.2, 5.0, 25.4],  # Third tile (shifted north)
-    [4.6, 25.2, 4.8, 25.4]   # Fourth tile
-]
+# aoi_grid = [
+#     [4.8, 25.0, 5.0, 25.2],  # First tile
+#     [4.6, 25.0, 4.8, 25.2],  # Second tile (shifted east)
+#     [4.8, 25.2, 5.0, 25.4],  # Third tile (shifted north)
+#     [4.6, 25.2, 4.8, 25.4]   # Fourth tile
+# ]
+
+# Configuration
+num_to_download = 50  # Number of regions to download
+tile_size = 0.2  # Each tile is 0.2° x 0.2°
+base_lon = 5.0  # Starting longitude (5.0°E)
+base_lat = 25.0  # Starting latitude (25.0°N)
+
+# Calculate grid dimensions (10x5 grid for 50 tiles)
+num_lon_steps = 10  # 10 steps in longitude
+num_lat_steps = 5   # 5 steps in latitude
+
+# Dynamically generate aoi_grid
+aoi_grid = []
+for lat_idx in range(num_lat_steps):
+    for lon_idx in range(num_lon_steps):
+        min_lon = round(base_lon + lon_idx * tile_size, 10)
+        min_lat = round(base_lat + lat_idx * tile_size, 10)
+        max_lon = round(min_lon + tile_size, 10)
+        max_lat = round(min_lat + tile_size, 10)
+        aoi_grid.append([min_lon, min_lat, max_lon, max_lat])
+
+# Verify the number of regions
+print(f"Generated {len(aoi_grid)} regions for download")
 
 init_num = 8  # Number of AOIs already to processed; will be used to update filenames
 # Define output directory
