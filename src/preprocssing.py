@@ -128,5 +128,8 @@ def main():
     
     print(f"Preprocessed {len(images)} images. Train: {len(X_train)}, Test: {len(X_test)}")
 
+    print("Test image shape:", X_test.shape)  # Should be (1, 128, 128, 3)
+    print("Test label:", y_test)  # Should be [0]
+
 if __name__ == "__main__":
     main()
