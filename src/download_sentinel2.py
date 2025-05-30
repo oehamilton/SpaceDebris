@@ -26,7 +26,7 @@ aoi_grid = [
     [4.6, 25.2, 4.8, 25.4]   # Fourth tile
 ]
 
-init_num = 4  # Number of AOIs already to processed; will be used to update filenames
+init_num = 8  # Number of AOIs already to processed; will be used to update filenames
 # Define output directory
 output_dir = Path("data")
 output_dir.mkdir(parents=True, exist_ok=True)
