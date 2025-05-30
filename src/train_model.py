@@ -35,28 +35,30 @@ print("Test labels:", y_test)
 
 # Data augmentation
 datagen = ImageDataGenerator(
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    zoom_range=0.2,
-    brightness_range=[0.8, 1.2],
+    rotation_range=30,
+    width_shift_range=0.3,
+    height_shift_range=0.3,
+    zoom_range=0.3,
+    brightness_range=[0.6, 1.4],
+    shear_range=0.2,
+    channel_shift_range=20,
     fill_mode='nearest'
 )
 
 # Build a simpler CNN model
 print("Building model...")
 model = Sequential([
-    Conv2D(16, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
-    MaxPooling2D((2, 2)),  # Output: (64, 64, 16)
+    Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
+    MaxPooling2D((2, 2)),  # Output: (64, 64, 8)
+    
+    Conv2D(16, (3, 3), activation='relu', padding='same'),
+    MaxPooling2D((2, 2)),  # Output: (32, 32, 16)
     
     Conv2D(32, (3, 3), activation='relu', padding='same'),
-    MaxPooling2D((2, 2)),  # Output: (32, 32, 32)
+    MaxPooling2D((2, 2)),  # Output: (16, 16, 32)
     
-    Conv2D(64, (3, 3), activation='relu', padding='same'),
-    MaxPooling2D((2, 2)),  # Output: (16, 16, 64)
-    
-    Flatten(),  # Output: (16 * 16 * 64 = 16384)
-    Dense(64, activation='relu'),
+    Flatten(),  # Output: (16 * 16 * 32 = 8192)
+    Dense(32, activation='relu'),
     Dropout(0.3),
     Dense(1, activation='sigmoid')
 ])
@@ -64,7 +66,7 @@ model = Sequential([
 # Compile the model
 print("Compiling model...")
 model.compile(
-    optimizer=Adam(learning_rate=0.0001),  # Lower learning rate
+    optimizer=Adam(learning_rate=0.0001),
     loss='binary_crossentropy',
     metrics=['accuracy']
 )
@@ -77,7 +79,7 @@ print("Training model...")
 history = model.fit(
     datagen.flow(X_train, y_train, batch_size=2),
     validation_data=(X_test, y_test),
-    epochs=5,  # Fewer epochs
+    epochs=10,  # Increased to 10
     steps_per_epoch=len(X_train) // 2,  # 6 images / 2 = 3 steps
     verbose=1
 )
@@ -110,3 +112,9 @@ plt.show()
 test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=0)
 print(f"Test Loss: {test_loss:.4f}")
 print(f"Test Accuracy: {test_accuracy:.4f}")
+
+# Check predictions on test set
+predictions = model.predict(X_test)
+print("Test predictions (probabilities):", predictions)
+print("Test predictions (classes):", (predictions > 0.5).astype(int))
+print("True test labels:", y_test)
