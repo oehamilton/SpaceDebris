@@ -6,37 +6,60 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 # Configuration
-DATA_DIR = Path("../data")  # Path to downloaded GeoTIFF images
-OUTPUT_DIR = Path("../data/preprocessed")  # Where to save preprocessed data
+SCRIPT_DIR = Path(__file__).parent  # Directory of this script
+print(f"Script directory: {SCRIPT_DIR}")    
+DATA_DIR = SCRIPT_DIR.parent / "data"  # Path to downloaded GeoTIFF images
+print(f"Data directory: {DATA_DIR}")    
+OUTPUT_DIR = DATA_DIR / "preprocessed"  # Where to save preprocessed data
+print(f"Output directory: {OUTPUT_DIR}")
+# Ensure output directory exists
 IMG_SIZE = (128, 128)  # Target image size for CNN
 SPLIT_RATIO = 0.2  # Train-test split ratio
+LABELS_FILE = DATA_DIR / 'labels.csv'  # Path to labels CSV file
 
-def load_images_and_labels(data_dir, labels_file=None):
-    """
-    Load GeoTIFF images and labels from the data directory.
-    If labels_file is provided, load labels from CSV; otherwise, infer from filenames.
-    """
+def load_images_and_labels(data_dir, labels_file):
+    """ 
+    Load GeoTIFF images and labels from the data directory using a CSV file. 
+
+    Args: 
+        data_dir (Path): Directory containing the images. 
+        labels_file (Path): Path to the CSV file with labels (columns: image_name, debris). 
+
+    Returns: 
+        images (list): List of loaded images. 
+        labels (list): List of corresponding labels. 
+
+    Raises: 
+        FileNotFoundError: If the labels file doesn't exist. """
+
     images = []
     labels = []
     
-    # Check if a labels CSV exists
-    if labels_file and labels_file.exists():
-        df = pd.read_csv(labels_file)
-        for _, row in df.iterrows():
+    # Ensure the data directory exists
+    if not labels_file.exists():
+        raise FileNotFoundError(f"Labels file {labels_file} does not exist.")
+    
+    # Load labels from CSV
+    df = pd.read_csv(labels_file)
+    if df.empty:
+        raise ValueError("Labels file is empty. Please provide a valid labels CSV.")  
+          
+    # Check for required columns
+    if 'image_name' not in df.columns or 'debris' not in df.columns:
+        raise ValueError("Labels file must contain 'image_name' and 'debris' columns.")
+    
+    for _, row in df.iterrows():
             img_path = data_dir / row['image_name']
             if img_path.exists():
                 img = cv2.imread(str(img_path), cv2.IMREAD_COLOR)
                 if img is not None:
                     images.append(img)
                     labels.append(row['debris'])  # 1 for debris, 0 for no debris
-    else:
-        # Load GeoTIFF images and infer labels from filenames
-        for img_path in data_dir.glob("*.tif"):
-            img = cv2.imread(str(img_path), cv2.IMREAD_COLOR)
-            if img is not None:
-                images.append(img)
-                label = 1 if "debris" in img_path.stem.lower() else 0  # Placeholder
-                labels.append(label)
+                else:
+                # Load GeoTIFF images and infer labels from filenames
+                    print(f"Warning: Unable to read image {img_path}. Skipping.")
+            else:   
+                print(f"Warning: Image file {img_path} does not exist. Skipping.")      
     
     return images, labels
 
@@ -73,10 +96,13 @@ def augment_image(img):
 
 def main():
     # Create output directory
+    print(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     # Load images
-    images, labels = load_images_and_labels(DATA_DIR)
+    images, labels = load_images_and_labels(DATA_DIR, LABELS_FILE)
+    if not images:
+        raise ValueError("No images loaded. Check the data directory and labels file.")     
     
     # Preprocess and augment
     processed_images = []
