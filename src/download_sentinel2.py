@@ -27,7 +27,7 @@ aoi_grid = [
 ]
 
 # Define output directory
-output_dir = Path("SpaceDebris/data")
+output_dir = Path("data")
 output_dir.mkdir(parents=True, exist_ok=True)
 
 # Function to download and handle the image
