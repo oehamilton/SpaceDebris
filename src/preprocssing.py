@@ -118,7 +118,7 @@ def main():
     
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
-        images, labels, test_size=SPLIT_RATIO, random_state=42
+        images, labels, test_size=SPLIT_RATIO, random_state=1
     )
     
     # Save preprocessed data
@@ -127,10 +127,11 @@ def main():
     np.save(OUTPUT_DIR / "y_train.npy", y_train)
     np.save(OUTPUT_DIR / "y_test.npy", y_test)
     
+    # Print summary
     print(f"Preprocessed {len(images)} images. Train: {len(X_train)}, Test: {len(X_test)}")
-
     print("Test image shape:", X_test.shape)  # Should be (1, 128, 128, 3)
     print("Test label:", y_test)  # Should be [0]
+    print("Test labels shape:", y_test.shape)  # (2,)
 
 if __name__ == "__main__":
     main()
