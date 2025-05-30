@@ -20,12 +20,13 @@ ee.Initialize(project='spacedebris-gee')  # Replace with your Project ID
 
 # Define a grid of smaller AOIs (0.2° x 0.2° each)
 aoi_grid = [
-    [5.0, 25.0, 5.2, 25.2],  # First tile
-    [5.2, 25.0, 5.4, 25.2],  # Second tile (shifted east)
-    [5.0, 25.2, 5.2, 25.4],  # Third tile (shifted north)
-    [5.2, 25.2, 5.4, 25.4]   # Fourth tile
+    [4.8, 25.0, 5.0, 25.2],  # First tile
+    [4.6, 25.0, 4.8, 25.2],  # Second tile (shifted east)
+    [4.8, 25.2, 5.0, 25.4],  # Third tile (shifted north)
+    [4.6, 25.2, 4.8, 25.4]   # Fourth tile
 ]
 
+init_num = 4  # Number of AOIs already to processed; will be used to update filenames
 # Define output directory
 output_dir = Path("data")
 output_dir.mkdir(parents=True, exist_ok=True)
@@ -88,5 +89,5 @@ for i, coords in enumerate(aoi_grid):
     image = collection.select(['B4', 'B3', 'B2'])
 
     # Download as GeoTIFF
-    output_file = output_dir / f"sentinel2_image_tile_{i}.tif"
+    output_file = output_dir / f"sentinel2_image_tile_{i+init_num}.tif"
     download_image(image, output_file, scale=10, region=aoi)
