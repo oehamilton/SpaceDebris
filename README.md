@@ -12,3 +12,20 @@ opencv-python==4.10.0
 matplotlib==3.9.2
 flask==3.0.3
 boto3==1.35.24
+
+# Space Debris Detection
+A machine learning project to classify satellite images for space debris detection using TensorFlow, Flask, React, and AWS.
+
+## Goals
+- Train a CNN to identify space debris in satellite imagery.
+- Deploy the model via AWS SageMaker with a React dashboard for visualization.
+
+## Setup
+1. Clone the repo: `git clone https://github.com/oehamilton/SpaceDebris`
+2. Create a conda environment: `conda create -n spacedebris python=3.9`
+3. Install dependencies: `conda install tensorflow pandas opencv matplotlib flask && pip install boto3`
+
+## Progress
+- [x] Initialized repo and project structure
+- [X] Data preprocessing 
+- [ ] CNN model training (in progress)
