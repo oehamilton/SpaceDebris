@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from pathlib import Path
 import matplotlib.pyplot as plt
 
@@ -13,7 +14,7 @@ SCRIPT_DIR = Path(__file__).parent  # SpaceDebris/src/
 DATA_DIR = SCRIPT_DIR.parent / "data" / "preprocessed"  # SpaceDebris/data/preprocessed/
 MODEL_DIR = SCRIPT_DIR.parent / "models"  # SpaceDebris/models/
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
-MODEL_PATH = MODEL_DIR / "debris_classifier.h5"
+MODEL_PATH = MODEL_DIR / "debris_classifier.keras"  # Use .keras format
 
 # Load preprocessed data
 print("Loading preprocessed data...")
@@ -32,25 +33,38 @@ print("Test labels shape:", y_test.shape)
 print("Test labels dtype:", y_test.dtype)
 print("Test labels:", y_test)
 
-# Build the CNN model
+# Data augmentation
+datagen = ImageDataGenerator(
+    rotation_range=20,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    zoom_range=0.2,
+    brightness_range=[0.8, 1.2],
+    fill_mode='nearest'
+)
+
+# Build a simpler CNN model
 print("Building model...")
 model = Sequential([
-    Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
-    MaxPooling2D((2, 2)),
+    Conv2D(16, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
+    MaxPooling2D((2, 2)),  # Output: (64, 64, 16)
+    
+    Conv2D(32, (3, 3), activation='relu', padding='same'),
+    MaxPooling2D((2, 2)),  # Output: (32, 32, 32)
+    
     Conv2D(64, (3, 3), activation='relu', padding='same'),
-    MaxPooling2D((2, 2)),
-    Conv2D(128, (3, 3), activation='relu', padding='same'),
-    MaxPooling2D((2, 2)),
-    Flatten(),
-    Dense(128, activation='relu'),
-    Dropout(0.5),
+    MaxPooling2D((2, 2)),  # Output: (16, 16, 64)
+    
+    Flatten(),  # Output: (16 * 16 * 64 = 16384)
+    Dense(64, activation='relu'),
+    Dropout(0.3),
     Dense(1, activation='sigmoid')
 ])
 
 # Compile the model
 print("Compiling model...")
 model.compile(
-    optimizer=Adam(learning_rate=0.001),
+    optimizer=Adam(learning_rate=0.0001),  # Lower learning rate
     loss='binary_crossentropy',
     metrics=['accuracy']
 )
@@ -58,13 +72,13 @@ model.compile(
 # Print model summary
 model.summary()
 
-# Train the model
+# Train the model with data augmentation
 print("Training model...")
 history = model.fit(
-    X_train, y_train,
+    datagen.flow(X_train, y_train, batch_size=2),
     validation_data=(X_test, y_test),
-    epochs=10,
-    batch_size=2,
+    epochs=5,  # Fewer epochs
+    steps_per_epoch=len(X_train) // 2,  # 6 images / 2 = 3 steps
     verbose=1
 )
 
