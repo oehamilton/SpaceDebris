@@ -110,6 +110,7 @@ def main():
         img = preprocess_image(img)
         img = augment_image(img)
         processed_images.append(img)
+        #print(1, img.shape)  # Debugging: print shape of each processed image
     
     # Convert to numpy arrays
     images = np.array(processed_images)
