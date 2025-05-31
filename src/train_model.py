@@ -4,6 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.metrics import Precision, Recall
 from pathlib import Path
 import matplotlib.pyplot as plt
 
@@ -66,9 +67,9 @@ model = Sequential([
 # Compile the model
 print("Compiling model...")
 model.compile(
-    optimizer=Adam(learning_rate=0.0001),
+    optimizer=Adam(learning_rate=0.0005),  # Increased from 0.0001
     loss='binary_crossentropy',
-    metrics=['accuracy']
+    metrics=['accuracy', Precision(), Recall()]
 )
 
 # Print model summary
@@ -79,8 +80,8 @@ print("Training model...")
 history = model.fit(
     datagen.flow(X_train, y_train, batch_size=2),
     validation_data=(X_test, y_test),
-    epochs=10,  # Increased to 10
-    steps_per_epoch=len(X_train) // 2,  # 6 images / 2 = 3 steps
+    epochs=20,  # Increased to 20
+    steps_per_epoch=len(X_train) // 2,  # 68 images / 2 = 34 steps
     verbose=1
 )
 
@@ -89,29 +90,41 @@ model.save(MODEL_PATH)
 print(f"Model saved to {MODEL_PATH}")
 
 # Plot training history
-plt.figure(figsize=(12, 4))
-plt.subplot(1, 2, 1)
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 3, 1)
 plt.plot(history.history['accuracy'], label='Training Accuracy')
 plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
 plt.title('Model Accuracy')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()
-plt.subplot(1, 2, 2)
+
+plt.subplot(1, 3, 2)
 plt.plot(history.history['loss'], label='Training Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')
 plt.title('Model Loss')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
 plt.legend()
+
+plt.subplot(1, 3, 3)
+plt.plot(history.history['precision'], label='Training Precision')
+plt.plot(history.history['val_precision'], label='Validation Precision')
+plt.title('Model Precision')
+plt.xlabel('Epoch')
+plt.ylabel('Precision')
+plt.legend()
+
 plt.tight_layout()
 plt.savefig(MODEL_DIR / "training_history.png")
 plt.show()
 
 # Evaluate the model on the test set
-test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=0)
+test_loss, test_accuracy, test_precision, test_recall = model.evaluate(X_test, y_test, verbose=0)
 print(f"Test Loss: {test_loss:.4f}")
 print(f"Test Accuracy: {test_accuracy:.4f}")
+print(f"Test Precision: {test_precision:.4f}")
+print(f"Test Recall: {test_recall:.4f}")
 
 # Check predictions on test set
 predictions = model.predict(X_test)
