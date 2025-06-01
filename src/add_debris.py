@@ -4,6 +4,7 @@ import pandas as pd
 from pathlib import Path
 import random
 
+
 # Configuration
 SCRIPT_DIR = Path(__file__).parent  # Directory of this script
 DATA_DIR = SCRIPT_DIR.parent / "data"  # Path to downloaded GeoTIFF images
@@ -14,6 +15,7 @@ LABELS_FILE = DATA_DIR / "labels.csv"
 # Load labels
 df = pd.read_csv(LABELS_FILE)
 
+
 def add_debris_to_image(img):
     """
     Add debris-like features to an image.
@@ -23,24 +25,33 @@ def add_debris_to_image(img):
         numpy array: Image with debris added
     """
     height, width, _ = img.shape
-    num_debris = random.randint(3, 8)  # Add 3-8 debris pieces per image
+    num_debris = random.randint(5, 15)  # Increased from 3-8 to 5-15
     
     for _ in range(num_debris):
         # Random position
-        x = random.randint(0, width - 1)
-        y = random.randint(0, height - 1)
+        x = random.randint(0, width - 15)  # Adjust for larger debris
+        y = random.randint(0, height - 15)
         
-        # Random size (1-5 pixels radius)
-        radius = random.randint(1, 5)
+        # Random size (3-8 pixels)
+        size = random.randint(3, 15)
         
-        # Random color (bright white/gray to contrast with sand, slight transparency)
-        color = (random.randint(200, 255), random.randint(200, 255), random.randint(200, 255))  # White/gray
+        # Random shape (circle, rectangle, or triangle)
+        shape = random.choice(['circle', 'rectangle', 'triangle'])
         
-        # Draw debris as a filled circle (simulating small objects)
-        cv2.circle(img, (x, y), radius, color, -1)
+        # High-contrast color (pure white or black)
+        color = random.choice([(255, 255, 255), (0, 0, 0)])  # White or black
         
-        # Add slight blur to blend with background
-        img = cv2.GaussianBlur(img, (5, 5), 0)
+        if shape == 'circle':
+            cv2.circle(img, (x, y), size, color, -1)
+        elif shape == 'rectangle':
+            cv2.rectangle(img, (x, y), (x + size, y + size), color, -1)
+        else:  # Triangle
+            points = np.array([
+                [x, y],
+                [x + size, y],
+                [x + size // 2, y + size]
+            ])
+            cv2.fillPoly(img, [points], color)
     
     return img
 
