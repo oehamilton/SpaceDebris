@@ -6,12 +6,11 @@ from pathlib import Path
 from sklearn.model_selection import train_test_split
 
 # Configuration
-SCRIPT_DIR = Path(__file__).parent  # Directory of this script
-print(f"Script directory: {SCRIPT_DIR}")    
+SCRIPT_DIR = Path(__file__).parent  # Directory of this script 
 DATA_DIR = SCRIPT_DIR.parent / "data"  # Path to downloaded GeoTIFF images
-print(f"Data directory: {DATA_DIR}")    
+DATA_DIR_DEBRIS = DATA_DIR / "data_with_debris"  # Path to downloaded GeoTIFF images   
 OUTPUT_DIR = DATA_DIR / "preprocessed"  # Where to save preprocessed data
-print(f"Output directory: {OUTPUT_DIR}")
+
 # Ensure output directory exists
 IMG_SIZE = (128, 128)  # Target image size for CNN
 SPLIT_RATIO = 0.2  # Train-test split ratio
@@ -100,7 +99,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     
     # Load images
-    images, labels = load_images_and_labels(DATA_DIR, LABELS_FILE)
+    images, labels = load_images_and_labels(DATA_DIR_DEBRIS, LABELS_FILE)
     if not images:
         raise ValueError("No images loaded. Check the data directory and labels file.")     
     
