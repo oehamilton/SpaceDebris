@@ -71,7 +71,7 @@ model = Sequential([
 
 # Compile the model with adjusted class weights
 print("Compiling model...")
-class_weight = {0: 1.0, 1: 2.0}  # Kept from previous run
+class_weight = {0: 1.0, 1: 1.9}  # Kept from previous run
 model.compile(
     optimizer=Adam(learning_rate=0.001),  # Reduced from 0.0005
     loss='binary_crossentropy',
