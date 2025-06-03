@@ -4,6 +4,6 @@ __pycache__/
 data/
 models/*.h5
 venv/
-frontend/node_modules/
+node_modules/
 
 
