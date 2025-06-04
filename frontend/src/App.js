@@ -29,8 +29,9 @@ function App() {
     formData.append("image", image);
 
     try {
+      console.log("Sending image to server:", image.name);
       const response = await axios.post(
-        "http://localhost:5000/predict",
+        "http://192.168.0.104:5000/predict",
         formData,
         {
           headers: {
@@ -38,9 +39,11 @@ function App() {
           },
         }
       );
+      console.log("Received prediction response:", response.data);
       setPrediction(response.data);
       setError(null);
     } catch (err) {
+      console.error("Error during prediction:", err);
       setError(
         err.response?.data?.error ||
           "An error occurred while making the prediction."
