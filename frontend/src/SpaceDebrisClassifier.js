@@ -7,7 +7,6 @@ function SpaceDebrisClassifier() {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
 
-  // Handle image selection
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -17,7 +16,6 @@ function SpaceDebrisClassifier() {
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!image) {
@@ -56,28 +54,32 @@ function SpaceDebrisClassifier() {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Space Debris Classifier</h2>
+    <div className="p-4 text-gray-800">
+      <h2 className="text-2xl font-bold mb-4 text-blue-900">
+        Space Debris Classifier
+      </h2>
       <form onSubmit={handleSubmit}>
         <input
           type="file"
           accept="image/png, image/jpeg"
           onChange={handleImageChange}
-          className="mb-2"
+          className="mb-2 text-gray-700"
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
         >
           Predict
         </button>
       </form>
 
-      {error && <p className="text-red-500 mt-2">{error}</p>}
+      {error && <p className="text-red-600 mt-2">{error}</p>}
 
       {prediction && (
         <div className="mt-4">
-          <h3 className="text-xl font-semibold">Prediction Result</h3>
+          <h3 className="text-xl font-semibold text-blue-800">
+            Prediction Result
+          </h3>
           <p>Label: {prediction.label}</p>
           <p>Probability: {(prediction.probability * 100).toFixed(2)}%</p>
           <p>Class: {prediction.class}</p>

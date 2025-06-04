@@ -4,15 +4,17 @@ import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
-    <aside className="bg-gray-200 w-64 h-full p-4">
-      <h2 className="text-xl font-bold mb-4">Navigation</h2>
+    <aside className="bg-blue-800 w-64 h-full p-4 text-white">
+      <h2 className="text-xl font-bold mb-4 text-blue-200">Navigation</h2>
       <ul>
         <li>
-          <Link to="/classifier" className="text-blue-500 hover:underline">
+          <Link
+            to="/classifier"
+            className="text-blue-300 hover:text-blue-100 transition-colors"
+          >
             Space Debris Classifier
           </Link>
         </li>
-        {/* Add more navigation links here as needed */}
       </ul>
     </aside>
   );
