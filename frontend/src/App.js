@@ -9,7 +9,7 @@ import SpaceDebrisClassifier from "./SpaceDebrisClassifier";
 function App() {
   return (
     <Router>
-      <div className="flex flex-col h-screen bg-gradient-to-b from-blue-950 to-purple-900 to-blue-800 text-white">
+      <div className="flex flex-col h-screen bg-space-blue">
         {/* Top Pane: Header */}
         <Header />
 
@@ -19,7 +19,7 @@ function App() {
           <Sidebar />
 
           {/* Right Main Pane */}
-          <main className="flex-1 bg-blue-100 bg-opacity-90 overflow-y-auto">
+          <main className="flex-1 bg-blue-50 overflow-y-auto">
             <Routes>
               <Route path="/" element={<DefaultPage />} />
               <Route path="/classifier" element={<SpaceDebrisClassifier />} />

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="bg-blue-900 text-white h-16 flex items-center justify-between px-4 shadow-lg">
+    <header className="bg-blue-950 text-white h-16 flex items-center justify-between px-4 shadow-lg">
       <div className="flex items-center">
         <FaRocket className="text-2xl mr-2 text-blue-300" />
         <span className="text-lg font-bold text-blue-200">SpaceDebris</span>
