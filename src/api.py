@@ -1,12 +1,15 @@
 import numpy as np
 import tensorflow as tf
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from PIL import Image
 import io
 import os
 from pathlib import Path
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
+
 
 # Configuration
 SCRIPT_DIR = Path(__file__).parent

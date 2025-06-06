@@ -1,77 +1,33 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "./App.css";
+// src/App.js
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+import DefaultPage from "./DefaultPage";
+import SpaceDebrisClassifier from "./SpaceDebrisClassifier";
 
 function App() {
-  const [image, setImage] = useState(null);
-  const [prediction, setPrediction] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Handle image selection
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImage(file);
-      setPrediction(null);
-      setError(null);
-    }
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!image) {
-      setError("Please select an image.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("image", image);
-
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setPrediction(response.data);
-      setError(null);
-    } catch (err) {
-      setError(
-        err.response?.data?.error ||
-          "An error occurred while making the prediction."
-      );
-      setPrediction(null);
-    }
-  };
-
   return (
-    <div className="App">
-      <h1>Space Debris Classifier</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={handleImageChange}
-        />
-        <button type="submit">Predict</button>
-      </form>
+    <Router>
+      <div className="flex flex-col h-screen bg-space-blue p-4">
+        {/* Top Pane: Header */}
+        <Header />
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+        {/* Main Content: Sidebar + Main Pane */}
+        <div className="flex flex-1 mt-4 space-x-4">
+          {/* Left Sidebar */}
+          <Sidebar />
 
-      {prediction && (
-        <div>
-          <h2>Prediction Result</h2>
-          <p>Label: {prediction.label}</p>
-          <p>Probability: {(prediction.probability * 100).toFixed(2)}%</p>
-          <p>Class: {prediction.class}</p>
+          {/* Right Main Pane */}
+          <main className="bg-blue-200 flex-1 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
+            <Routes>
+              <Route path="/" element={<DefaultPage />} />
+              <Route path="/classifier" element={<SpaceDebrisClassifier />} />
+            </Routes>
+          </main>
         </div>
-      )}
-    </div>
+      </div>
+    </Router>
   );
 }
 
