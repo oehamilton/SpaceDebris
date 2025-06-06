@@ -54,7 +54,7 @@ function SpaceDebrisClassifier() {
   };
 
   return (
-    <div className="p-4 text-gray-800">
+    <div className="bg-blue-200 p-4 text-gray-800">
       <h2 className="text-2xl font-bold mb-4 text-blue-900">
         Space Debris Classifier
       </h2>

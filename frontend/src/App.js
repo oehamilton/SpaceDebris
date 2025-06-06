@@ -19,7 +19,7 @@ function App() {
           <Sidebar />
 
           {/* Right Main Pane */}
-          <main className="flex-1 bg-blue-50 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
+          <main className="bg-blue-200 flex-1 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
             <Routes>
               <Route path="/" element={<DefaultPage />} />
               <Route path="/classifier" element={<SpaceDebrisClassifier />} />
