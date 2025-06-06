@@ -3,7 +3,7 @@ import React from "react";
 
 function DefaultPage() {
   return (
-    <div className="p-4 text-gray-800">
+    <div className="p-6 text-gray-800 shadow-inner">
       <h2 className="text-2xl font-bold mb-4 text-blue-900">
         Welcome to SpaceDebris
       </h2>
