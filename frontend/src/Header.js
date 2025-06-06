@@ -12,7 +12,7 @@ function Header() {
       </div>
       <nav className="flex space-x-4">
         <Link to="/" className="hover:text-blue-200 transition-colors">
-          HOME
+          Home
         </Link>
         <a href="#" className="hover:text-blue-200 transition-colors">
           Options
