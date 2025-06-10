@@ -61,7 +61,7 @@ jmespath==1.0.1
 joblib==1.5.1
 jupyter-leaflet==0.19.2
 jupyterlab_widgets==3.0.15
-keras==2.14.0
+keras==2.15.0
 kiwisolver==1.4.8
 libclang==18.1.1
 Markdown==3.8
