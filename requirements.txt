@@ -83,7 +83,6 @@ platformdirs==4.3.8
 plotly==6.1.2
 prompt_toolkit==3.0.51
 proto-plus==1.26.1
-protobuf==4.25.8
 pure_eval==0.2.3
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
@@ -105,7 +104,7 @@ scipy==1.15.3
 scooby==0.10.1
 six==1.17.0
 stack-data==0.6.3
-tensorboard==2.15.2
+tensorboard==2.15.0
 tensorboard-data-server==0.7.2
 tensorflow==2.15.0
 tensorflow-estimator==2.15.0
