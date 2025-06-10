@@ -105,11 +105,11 @@ scipy==1.15.3
 scooby==0.10.1
 six==1.17.0
 stack-data==0.6.3
-tensorboard==2.14.1
+tensorboard==2.15.2
 tensorboard-data-server==0.7.2
-tensorflow==2.14.1
-tensorflow-estimator==2.14.0
-tensorflow-intel==2.14.1
+tensorflow==2.15.0
+tensorflow-estimator==2.15.0
+tensorflow-intel==2.15.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==3.1.0
 threadpoolctl==3.6.0
