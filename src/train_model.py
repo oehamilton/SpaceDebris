@@ -51,20 +51,20 @@ datagen = ImageDataGenerator(
 # Build the CNN model
 print("Building model...")
 model = Sequential([
-    Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
+    Conv2D(4, (3, 3), activation='relu', padding='same', input_shape=(128, 128, 3)),
     BatchNormalization(),
     MaxPooling2D((2, 2)),  # Output: (64, 64, 8)
     
-    Conv2D(16, (3, 3), activation='relu', padding='same'),
+    Conv2D(8, (3, 3), activation='relu', padding='same'),
     BatchNormalization(),
     MaxPooling2D((2, 2)),  # Output: (32, 32, 16)
     
-    Conv2D(32, (3, 3), activation='relu', padding='same'),
+    Conv2D(16, (3, 3), activation='relu', padding='same'),
     BatchNormalization(),
     MaxPooling2D((2, 2)),  # Output: (16, 16, 32)
     
     Flatten(),  # Output: (16 * 16 * 32 = 8192)
-    Dense(32, activation='relu'),
+    Dense(8, activation='relu'),
     Dropout(0.3),
     Dense(1, activation='sigmoid')
 ])
