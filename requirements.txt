@@ -8,4 +8,5 @@ pylint==3.3.7
 scikit-learn==1.6.1
 scipy==1.15.3
 tensorflow-cpu==2.15.0
+gunicorn
 
