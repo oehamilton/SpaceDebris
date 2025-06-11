@@ -13,7 +13,7 @@ CORS(app)
 
 SCRIPT_DIR = Path(__file__).parent
 MODEL_PATH = SCRIPT_DIR.parent / "models" / "debris_classifier.keras"
-
+print(f"Model path: {MODEL_PATH}")
 model = None
 model_lock = threading.Lock()
 
