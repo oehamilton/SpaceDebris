@@ -17,7 +17,7 @@ MODEL_PATH = SCRIPT_DIR.parent / "models" / "debris_classifier.keras"
 
 # Load the trained model
 print("Loading model...")
-model = tf.keras.models.load_model(MODEL_PATH)
+#model = tf.keras.models.load_model(MODEL_PATH)
 print("Model loaded successfully.")
 
 # Preprocess the uploaded image
@@ -57,7 +57,7 @@ def predict():
         # Read and preprocess the image
         image = Image.open(io.BytesIO(file.read()))
         image_array = preprocess_image(image)
-        
+        model = tf.keras.models.load_model(MODEL_PATH)
         # Make prediction
         prediction = model.predict(image_array)[0][0]  # Probability for class 1
         
