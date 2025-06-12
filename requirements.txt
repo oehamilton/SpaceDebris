@@ -12,4 +12,4 @@ waitress
 gunicorn
 scikit-learn
 scipy
-scikit-image
+scikit-image 
