@@ -95,7 +95,7 @@ function SpaceDebrisClassifier() {
       console.log("Sending request with image:", image.name);
       console.log("xxx");
       const response = await axios.post(
-        "https://space-debris-api-2713d4504a5f.herokuapp.com/predict",
+        "http://localhost:5000/predict",
         formData,
         {
           headers: {
