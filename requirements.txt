@@ -12,6 +12,4 @@ waitress
 gunicorn
 scikit-learn
 scipy
-scikit-image 
-earthengine-api
-geemap
+scikit-image
