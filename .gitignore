@@ -2,6 +2,5 @@ __pycache__/
 *.pyc
 .env
 data/
-models/*.h5
 venv/
 node_modules/
