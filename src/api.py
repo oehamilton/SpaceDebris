@@ -8,6 +8,7 @@ import io
 from pathlib import Path
 import threading
 import time
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -21,11 +22,12 @@ model_loaded = False
 
 def load_model_async():
     global model, model_loaded
-    time.sleep(5)  # Delay to ensure port binding
+    # Delay to ensure port binding
+    time.sleep(5)
     with model_lock:
         if not model_loaded:
             print(f"Loading model at {time.strftime('%H:%M:%S')}")
-            print(f"Model path: {MODEL_PATH}")
+            print(f"Model path: {MODEL_PATH}, exists: {os.path.exists(MODEL_PATH)}")
             try:
                 start_time = time.time()
                 model = tf.keras.models.load_model(MODEL_PATH, compile=False)
