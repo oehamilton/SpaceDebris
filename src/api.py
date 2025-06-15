@@ -7,6 +7,7 @@ from PIL import Image
 import io
 from pathlib import Path
 import threading
+import time
 
 app = Flask(__name__)
 CORS(app)
@@ -16,21 +17,35 @@ MODEL_PATH = SCRIPT_DIR.parent / "models" / "debris_classifier.h5"
 
 model = None
 model_lock = threading.Lock()
+model_loaded = False
 
 def load_model_async():
-    global model
+    global model, model_loaded
+    # Delay to ensure port binding occurs first
+    time.sleep(5)
     with model_lock:
-        if model is None:
+        if not model_loaded:
             print("Loading model...")
             print(f"Model path: {MODEL_PATH}")
             try:
-                model = tf.keras.models.load_model(MODEL_PATH)
+                model = tf.keras.models.load_model(MODEL_PATH, compile=False)  # compile=False to avoid optimizer issues
+                model_loaded = True
                 print("Model loaded successfully.")
             except Exception as e:
                 print(f"Model loading failed: {e}")
+                model_loaded = False
 
 # Start model loading in a background thread
 threading.Thread(target=load_model_async, daemon=True).start()
+
+def get_model():
+    global model, model_loaded
+    with model_lock:
+        if not model_loaded:
+            time.sleep(1)  # Brief retry delay
+            if not model_loaded:
+                raise Exception("Model failed to load, please retry.")
+        return model
 
 def preprocess_image(image):
     if image.mode != "RGB":
@@ -42,11 +57,8 @@ def preprocess_image(image):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    global model
-    with model_lock:
-        if model is None:
-            return jsonify({"error": "Model is still loading, please try again later."}), 503
     try:
+        model = get_model()
         if 'image' not in request.files:
             return jsonify({"error": "No image file provided"}), 400
         file = request.files['image']
