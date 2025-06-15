@@ -6,3 +6,5 @@ model/*.keras
 model/*.png
 venv/
 node_modules/
+# Local Netlify folder
+.netlify
