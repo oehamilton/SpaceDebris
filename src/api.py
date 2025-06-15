@@ -22,8 +22,7 @@ model_loaded = False
 
 def load_model_async():
     global model, model_loaded
-    # Delay to ensure port binding
-    time.sleep(5)
+    time.sleep(5)  # Delay to ensure port binding
     with model_lock:
         if not model_loaded:
             print(f"Loading model at {time.strftime('%H:%M:%S')}")
@@ -33,6 +32,7 @@ def load_model_async():
                 model = tf.keras.models.load_model(MODEL_PATH, compile=False)
                 model_loaded = True
                 print(f"Model loaded successfully in {time.time() - start_time:.2f} seconds at {time.strftime('%H:%M:%S')}")
+                print(f"Worker ready at {time.strftime('%H:%M:%S')}")
             except Exception as e:
                 print(f"Model loading failed at {time.strftime('%H:%M:%S')}: {e}")
                 model_loaded = False
@@ -81,5 +81,6 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print(f"Server starting at {time.strftime('%H:%M:%S')}")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.getenv('PORT', 5000))  # Use $PORT or default to 5000
+    print(f"Server starting at {time.strftime('%H:%M:%S')} on port {port}")
+    app.run(host='0.0.0.0', port=port, debug=True)
