@@ -9,6 +9,7 @@ from pathlib import Path
 import threading
 import time
 import os
+import sys
 
 app = Flask(__name__)
 CORS(app)
@@ -32,10 +33,11 @@ def load_model_async():
                 model = tf.keras.models.load_model(MODEL_PATH, compile=False)
                 model_loaded = True
                 print(f"Model loaded successfully in {time.time() - start_time:.2f} seconds at {time.strftime('%H:%M:%S')}")
-                print(f"Worker ready at {time.strftime('%H:%M:%S')}")
+                print(f"Worker initializing at {time.strftime('%H:%M:%S')}")
             except Exception as e:
                 print(f"Model loading failed at {time.strftime('%H:%M:%S')}: {e}")
                 model_loaded = False
+            print(f"Worker ready at {time.strftime('%H:%M:%S')}")
 
 threading.Thread(target=load_model_async, daemon=True).start()
 
