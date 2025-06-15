@@ -21,28 +21,27 @@ model_loaded = False
 
 def load_model_async():
     global model, model_loaded
-    # Delay to ensure port binding occurs first
-    time.sleep(5)
+    time.sleep(5)  # Delay to ensure port binding
     with model_lock:
         if not model_loaded:
-            print("Loading model...")
+            print(f"Loading model at {time.strftime('%H:%M:%S')}")
             print(f"Model path: {MODEL_PATH}")
             try:
-                model = tf.keras.models.load_model(MODEL_PATH, compile=False)  # compile=False to avoid optimizer issues
+                start_time = time.time()
+                model = tf.keras.models.load_model(MODEL_PATH, compile=False)
                 model_loaded = True
-                print("Model loaded successfully.")
+                print(f"Model loaded successfully in {time.time() - start_time:.2f} seconds at {time.strftime('%H:%M:%S')}")
             except Exception as e:
-                print(f"Model loading failed: {e}")
+                print(f"Model loading failed at {time.strftime('%H:%M:%S')}: {e}")
                 model_loaded = False
 
-# Start model loading in a background thread
 threading.Thread(target=load_model_async, daemon=True).start()
 
 def get_model():
     global model, model_loaded
     with model_lock:
         if not model_loaded:
-            time.sleep(1)  # Brief retry delay
+            time.sleep(1)  # Retry delay
             if not model_loaded:
                 raise Exception("Model failed to load, please retry.")
         return model
@@ -80,4 +79,5 @@ def predict():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    print(f"Server starting at {time.strftime('%H:%M:%S')}")
     app.run(host='0.0.0.0', port=5000, debug=True)
