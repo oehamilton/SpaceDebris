@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 SCRIPT_DIR = Path(__file__).parent
-MODEL_PATH = SCRIPT_DIR.parent / "models" / "debris_classifier.keras"
+MODEL_PATH = SCRIPT_DIR.parent / "models" / "debris_classifier.h5"
 
 model = None
 model_lock = threading.Lock()
