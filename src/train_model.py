@@ -103,6 +103,9 @@ history = model.fit(
 # Save the model
 model.save(MODEL_PATH)
 print(f"Model saved to {MODEL_PATH}")
+# train_model.py (update save line)
+model.save(MODEL_PATH.with_suffix('.h5'), save_format="h5", include_optimizer=False)
+print(f"Model saved to {MODEL_PATH.with_suffix('.h5')}")
 
 # Plot training history
 plt.figure(figsize=(12, 6))
