@@ -9,7 +9,7 @@ from pathlib import Path
 import threading
 import time
 import os
-import sys
+import traceback
 
 app = Flask(__name__)
 CORS(app)
@@ -37,7 +37,15 @@ def load_model_async():
             except Exception as e:
                 print(f"Model loading failed at {time.strftime('%H:%M:%S')}: {e}")
                 model_loaded = False
-            print(f"Worker ready at {time.strftime('%H:%M:%S')}")
+            try:
+                print(f"Worker ready at {time.strftime('%H:%M:%S')}")
+                # Simulate worker setup to catch exceptions
+                if model is not None:
+                    print(f"Worker setup complete at {time.strftime('%H:%M:%S')}")
+                else:
+                    raise Exception("Model not available for worker")
+            except Exception as e:
+                print(f"Worker setup failed at {time.strftime('%H:%M:%S')}: {traceback.format_exc()}")
 
 threading.Thread(target=load_model_async, daemon=True).start()
 
