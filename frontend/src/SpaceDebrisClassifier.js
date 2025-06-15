@@ -104,7 +104,7 @@ function SpaceDebrisClassifier() {
         }
       );
       console.log("Prediction response:", response.data);
-      console.log("xxx");
+
       setPrediction(response.data);
       setError(null);
     } catch (err) {
