@@ -49,7 +49,7 @@ for lat_idx in range(num_lat_steps):
 # Verify the number of regions
 print(f"Generated {len(aoi_grid)} regions for download")
 
-init_num = 689  # Number of AOIs already to processed; will be used to update filenames
+init_num = 889  # Number of AOIs already to processed; will be used to update filenames
 # Define output directory
 output_dir = Path("data")
 output_dir.mkdir(parents=True, exist_ok=True)
