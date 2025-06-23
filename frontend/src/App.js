@@ -1,5 +1,5 @@
 // src/App.js
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -7,16 +7,22 @@ import DefaultPage from "./DefaultPage";
 import SpaceDebrisClassifier from "./SpaceDebrisClassifier";
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <Router>
-      <div className="flex flex-col h-screen bg-space-blue p-4">
-        {/* Top Pane: Header */}
-        <Header />
+      <div className="min-h-screen bg-space-blue p-2 sm:p-4">
+        {/* Top Pane: Header with Navigation Toggle */}
+        <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {/* Main Content: Sidebar + Main Pane */}
-        <div className="flex flex-1 mt-4 space-x-4">
-          {/* Left Sidebar */}
-          <Sidebar />
+        <div className="flex flex-1 mt-2 sm:mt-4">
+          {/* Left Sidebar - Collapsible on Mobile */}
+          <Sidebar isOpen={isSidebarOpen} />
 
           {/* Right Main Pane */}
           <main className="bg-blue-200 flex-1 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
