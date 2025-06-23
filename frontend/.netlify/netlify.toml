@@ -1,4 +1,4 @@
-functionsDirectory = "D:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
+functionsDirectory = "C:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
 functionsDirectoryOrigin = "ui"
 plugins = []
 headers = []
@@ -9,12 +9,12 @@ redirects = []
 [functions."*"]
 
 [build]
-publish = "D:\\CODE\\SpaceDebris\\frontend\\build"
+publish = "C:\\CODE\\SpaceDebris\\frontend\\build"
 publishOrigin = "config"
 commandOrigin = "config"
-base = "D:\\CODE\\SpaceDebris\\frontend"
+base = "C:\\CODE\\SpaceDebris\\frontend"
 command = "npm run build"
-functions = "D:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
+functions = "C:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
 
 [build.environment]
 
