@@ -121,7 +121,14 @@ function SpaceDebrisClassifier() {
   return (
     <div className="p-6 text-gray-800 shadow-inner">
       <h2 className="text-2xl font-bold mb-4 text-blue-900">
-        Space Debris Classifier
+        <a
+          href="https://github.com/oehamilton/SpaceDebris"
+          target="Click to See Code"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          Space Debris Classifier
+        </a>
       </h2>
       <form onSubmit={handleSubmit}>
         <input
