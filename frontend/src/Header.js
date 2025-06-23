@@ -5,12 +5,14 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="bg-blue-950 text-white h-16 flex items-center justify-between px-4 border border-blue-300 rounded-lg shadow-md">
+    <header className="bg-blue-950 text-white flex items-center justify-between px-4 py-2 border border-blue-300 rounded-lg shadow-md">
       <div className="flex items-center">
-        <FaRocket className="text-2xl mr-2 text-blue-300" />
-        <span className="text-lg font-bold text-blue-200">SpaceDebris</span>
+        <FaRocket className="text-xl sm:text-2xl mr-1 sm:mr-2 text-blue-200" />
+        <span className="text-sm sm:text-lg font-bold text-blue-100">
+          SpaceDebris
+        </span>
       </div>
-      <nav className="flex space-x-4">
+      <nav className="flex space-x-2 sm:space-x-4">
         <Link to="/" className="hover:text-blue-200 transition-colors">
           Home
         </Link>
