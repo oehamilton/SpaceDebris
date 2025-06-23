@@ -33,7 +33,7 @@ function SpaceDebrisClassifier() {
       const img = new Image();
       img.onload = () => {
         const stats = {
-          size: (file.size / 1024).toFixed(2) + " KB", // Convert bytes to KB
+          size: (file.size / 1024).toFixed(2) + " KB",
           dimensions: `${img.naturalWidth} x ${img.naturalHeight} pixels`,
           pixelCount: img.naturalWidth * img.naturalHeight,
           aiProcessing: {
@@ -42,7 +42,7 @@ function SpaceDebrisClassifier() {
           },
         };
         if (file.size >= 1024 * 1024) {
-          stats.size = (file.size / (1024 * 1024)).toFixed(2) + " MB"; // Convert to MB if >= 1MB
+          stats.size = (file.size / (1024 * 1024)).toFixed(2) + " MB";
         }
         setImageStats(stats);
       };
@@ -104,7 +104,6 @@ function SpaceDebrisClassifier() {
         }
       );
       console.log("Prediction response:", response.data);
-
       setPrediction(response.data);
       setError(null);
     } catch (err) {
@@ -119,119 +118,128 @@ function SpaceDebrisClassifier() {
   };
 
   return (
-    <div className="p-6 text-gray-800 shadow-inner">
-      <h2 className="text-2xl font-bold mb-4 text-blue-900">
-        <a
-          href="https://github.com/oehamilton/SpaceDebris"
-          target="_blank"
-          title="Click to See Code"
-          rel="noopener noreferrer"
-          aria-label="Space Debris Classifier GitHub repository (opens in new tab)"
-          className="text-blue-600 hover:underline"
-        >
-          Space Debris Classifier
-        </a>
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          onChange={handleImageChange}
-          className="mb-2 text-gray-700"
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors"
-        >
-          Predict
-        </button>
-      </form>
-
-      {/* Image Preview Before Prediction */}
-      {imagePreview && !prediction && (
-        <div className="mt-4">
-          <h3 className="text-xl font-semibold text-blue-800 mb-2">
-            Image Preview
-          </h3>
-          <img
-            src={imagePreview}
-            alt="Preview"
-            className="max-w-xs max-h-64 object-contain rounded-lg shadow-md"
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-900 text-center">
+          <a
+            href="https://github.com/oehamilton/SpaceDebris"
+            target="_blank"
+            title="Click to See Code"
+            rel="noopener noreferrer"
+            aria-label="Space Debris Classifier GitHub repository (opens in new tab)"
+            className="text-blue-600 hover:underline"
+          >
+            Space Debris Classifier
+          </a>
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleImageChange}
+            className="w-full text-sm sm:text-base p-2 border rounded mb-2 sm:mb-4 text-gray-700"
           />
-        </div>
-      )}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors min-h-[48px] min-w-[48px] text-sm sm:text-base"
+            disabled={!image}
+          >
+            Predict
+          </button>
+        </form>
 
-      {/* Post-Prediction Display */}
-      {prediction && imagePreview && (
-        <div className="mt-4">
-          <h3 className="text-xl font-semibold text-blue-800 mb-2">
-            Prediction Result
-          </h3>
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Image and Prediction */}
-            <div className="flex-1">
-              <img
-                src={imagePreview}
-                alt="Uploaded"
-                className="max-w-xs max-h-64 object-contain rounded-lg shadow-md mb-4"
-              />
-              <p>
-                <strong>Label:</strong> {prediction.label}
-              </p>
-              <p>
-                <strong>Probability:</strong>{" "}
-                {(prediction.probability * 100).toFixed(2)}%
-              </p>
-              <p>
-                <strong>Class:</strong> {prediction.class}
-              </p>
-            </div>
-            {/* Image Stats */}
-            {imageStats && (
-              <div className="flex-1">
-                <h4 className="text-lg font-semibold text-blue-800 mb-2">
-                  Image Stats
-                </h4>
-                <p>
-                  <strong>Size:</strong> {imageStats.size}
-                </p>
-                <p>
-                  <strong>Dimensions:</strong> {imageStats.dimensions}
-                </p>
-                <p>
-                  <strong>Total Pixels:</strong>{" "}
-                  {imageStats.pixelCount.toLocaleString()}
-                </p>
-                <h5 className="font-semibold mt-2">AI Processing:</h5>
-                <p>
-                  <strong>Resized:</strong> {imageStats.aiProcessing.resized}
-                </p>
-                <p>
-                  <strong>Normalized:</strong>{" "}
-                  {imageStats.aiProcessing.normalized}
-                </p>
-                {location ? (
-                  <div className="mt-2">
-                    <h5 className="font-semibold">Location (GPS):</h5>
-                    <p>
-                      <strong>Latitude:</strong> {location.latitude}°
-                    </p>
-                    <p>
-                      <strong>Longitude:</strong> {location.longitude}°
-                    </p>
-                  </div>
-                ) : (
-                  <p className="mt-2 italic text-gray-600">
-                    No location data available.
-                  </p>
-                )}
-              </div>
-            )}
+        {/* Image Preview Before Prediction */}
+        {imagePreview && !prediction && (
+          <div className="mt-4">
+            <h3 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2 text-center">
+              Image Preview
+            </h3>
+            <img
+              src={imagePreview}
+              alt="Preview"
+              className="max-w-xs max-h-64 object-contain rounded-lg shadow-md mx-auto"
+            />
           </div>
-        </div>
-      )}
+        )}
 
-      {error && <p className="text-red-600 mt-2">{error}</p>}
+        {/* Post-Prediction Display */}
+        {prediction && imagePreview && (
+          <div className="mt-4">
+            <h3 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2 text-center">
+              Prediction Result
+            </h3>
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* Image and Prediction */}
+              <div className="flex-1 p-2 sm:p-4">
+                <img
+                  src={imagePreview}
+                  alt="Uploaded"
+                  className="max-w-xs max-h-64 object-contain rounded-lg shadow-md mb-2 sm:mb-4 mx-auto"
+                />
+                <p className="text-sm sm:text-base">
+                  <strong>Label:</strong> {prediction.label}
+                </p>
+                <p className="text-sm sm:text-base">
+                  <strong>Probability:</strong>{" "}
+                  {(prediction.probability * 100).toFixed(2)}%
+                </p>
+                <p className="text-sm sm:text-base">
+                  <strong>Class:</strong> {prediction.class}
+                </p>
+              </div>
+              {/* Image Stats */}
+              {imageStats && (
+                <div className="flex-1 p-2 sm:p-4">
+                  <h4 className="text-lg sm:text-xl font-semibold text-blue-800 mb-2">
+                    Image Stats
+                  </h4>
+                  <p className="text-sm sm:text-base">
+                    <strong>Size:</strong> {imageStats.size}
+                  </p>
+                  <p className="text-sm sm:text-base">
+                    <strong>Dimensions:</strong> {imageStats.dimensions}
+                  </p>
+                  <p className="text-sm sm:text-base">
+                    <strong>Total Pixels:</strong>{" "}
+                    {imageStats.pixelCount.toLocaleString()}
+                  </p>
+                  <h5 className="font-semibold mt-2 text-sm sm:text-base">
+                    AI Processing:
+                  </h5>
+                  <p className="text-sm sm:text-base">
+                    <strong>Resized:</strong> {imageStats.aiProcessing.resized}
+                  </p>
+                  <p className="text-sm sm:text-base">
+                    <strong>Normalized:</strong>{" "}
+                    {imageStats.aiProcessing.normalized}
+                  </p>
+                  {location ? (
+                    <div className="mt-2">
+                      <h5 className="font-semibold text-sm sm:text-base">
+                        Location (GPS):
+                      </h5>
+                      <p className="text-sm sm:text-base">
+                        <strong>Latitude:</strong> {location.latitude}°
+                      </p>
+                      <p className="text-sm sm:text-base">
+                        <strong>Longitude:</strong> {location.longitude}°
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="mt-2 italic text-gray-600 text-sm sm:text-base">
+                      No location data available.
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <p className="text-red-600 mt-2 text-sm sm:text-base">{error}</p>
+        )}
+      </div>
     </div>
   );
 }
