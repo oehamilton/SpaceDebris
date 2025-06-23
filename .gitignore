@@ -2,7 +2,8 @@ __pycache__/
 *.pyc
 .env
 data/
-models/*.h5
+model/*.keras
+model/*.png
 venv/
 node_modules/
 

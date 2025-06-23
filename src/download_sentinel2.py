@@ -27,14 +27,14 @@ ee.Initialize(project='spacedebris-gee')  # Replace with your Project ID
 # ]
 
 # Configuration
-num_to_download = 300  # Number of regions to download
+num_to_download = 200  # Number of regions to download
 tile_size = 0.2  # Each tile is 0.2° x 0.2°
-base_lon = 14.0  # Starting longitude (5.0°E)
-base_lat = 23.0  # Starting latitude (25.0°N)
+base_lon = 15.0  # Starting longitude (5.0°E)
+base_lat = 29.0  # Starting latitude (25.0°N)
 
 # Calculate grid dimensions (10x5 grid for 50 tiles)
 num_lon_steps = 10  # 10 steps in longitude
-num_lat_steps = 30   # 5 steps in latitude
+num_lat_steps = 20   # 5 steps in latitude
 
 # Dynamically generate aoi_grid
 aoi_grid = []
@@ -49,7 +49,7 @@ for lat_idx in range(num_lat_steps):
 # Verify the number of regions
 print(f"Generated {len(aoi_grid)} regions for download")
 
-init_num = 689  # Number of AOIs already to processed; will be used to update filenames
+init_num = 889  # Number of AOIs already to processed; will be used to update filenames
 # Define output directory
 output_dir = Path("data")
 output_dir.mkdir(parents=True, exist_ok=True)

@@ -104,7 +104,7 @@ function SpaceDebrisClassifier() {
         }
       );
       console.log("Prediction response:", response.data);
-      console.log("xxx");
+
       setPrediction(response.data);
       setError(null);
     } catch (err) {
@@ -121,7 +121,16 @@ function SpaceDebrisClassifier() {
   return (
     <div className="p-6 text-gray-800 shadow-inner">
       <h2 className="text-2xl font-bold mb-4 text-blue-900">
-        Space Debris Classifier
+        <a
+          href="https://github.com/oehamilton/SpaceDebris"
+          target="_blank"
+          title="Click to See Code"
+          rel="noopener noreferrer"
+          aria-label="Space Debris Classifier GitHub repository (opens in new tab)"
+          className="text-blue-600 hover:underline"
+        >
+          Space Debris Classifier
+        </a>
       </h2>
       <form onSubmit={handleSubmit}>
         <input
