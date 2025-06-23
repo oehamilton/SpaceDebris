@@ -123,8 +123,10 @@ function SpaceDebrisClassifier() {
       <h2 className="text-2xl font-bold mb-4 text-blue-900">
         <a
           href="https://github.com/oehamilton/SpaceDebris"
-          target="Click to See Code"
+          target="_blank"
+          title="Click to See Code"
           rel="noopener noreferrer"
+          aria-label="Space Debris Classifier GitHub repository (opens in new tab)"
           className="text-blue-600 hover:underline"
         >
           Space Debris Classifier
