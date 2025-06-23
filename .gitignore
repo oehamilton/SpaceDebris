@@ -5,5 +5,32 @@ data/
 models/*.h5
 venv/
 node_modules/
+
+# Netlify-specific
 .netlify/
 .netlify/cache/
+
+# React frontend
+/frontend/build/
+/frontend/node_modules/
+/frontend/package-lock.json
+
+# Environment variables
+.env
+/frontend/.env
+
+# Python virtual environment
+venv/
+__pycache__
+*.pyc
+
+# OS-generated files
+.DS_Store
+
+# IDE-specific
+.vscode/
+*.code-workspace
+
+# Logs and databases (if any)
+*.log
+*.sqlite3
