@@ -27,14 +27,14 @@ ee.Initialize(project='spacedebris-gee')  # Replace with your Project ID
 # ]
 
 # Configuration
-num_to_download = 200  # Number of regions to download
+num_to_download = 1  # Number of regions to download
 tile_size = 0.2  # Each tile is 0.2° x 0.2°
 base_lon = 15.0  # Starting longitude (5.0°E)
 base_lat = 29.0  # Starting latitude (25.0°N)
 
 # Calculate grid dimensions (10x5 grid for 50 tiles)
-num_lon_steps = 10  # 10 steps in longitude
-num_lat_steps = 20   # 5 steps in latitude
+num_lon_steps = 1  # 10 steps in longitude
+num_lat_steps = 1   # 5 steps in latitude
 
 # Dynamically generate aoi_grid
 aoi_grid = []
@@ -103,8 +103,8 @@ for i, coords in enumerate(aoi_grid):
     # Load Sentinel-2 imagery (Level-2A, harmonized dataset)
     collection = (ee.ImageCollection('COPERNICUS/S2_SR_HARMONIZED')
                   .filterBounds(aoi)
-                  .filterDate('2023-05-01', '2025-05-29')
-                  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 10))
+                  .filterDate('2023-05-01', '2023-05-05')
+                  .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 75))
                   .sort('CLOUDY_PIXEL_PERCENTAGE')
                   .first())
 
@@ -114,3 +114,5 @@ for i, coords in enumerate(aoi_grid):
     # Download as GeoTIFF
     output_file = output_dir / f"sentinel2_image_tile_{i+init_num}.tif"
     download_image(image, output_file, scale=10, region=aoi)
+    print(collection.getInfo())
+  
