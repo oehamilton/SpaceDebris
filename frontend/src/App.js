@@ -1,10 +1,9 @@
 // src/App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import DefaultPage from "./DefaultPage";
-import SpaceDebrisClassifier from "./SpaceDebrisClassifier";
+import Header from "./Header.js";
+import DefaultPage from "./DefaultPage.js";
+import SpaceDebrisClassifier from "./SpaceDebrisClassifier.js";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,19 +18,13 @@ function App() {
         {/* Top Pane: Header with Navigation Toggle */}
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
-        {/* Main Content: Sidebar + Main Pane */}
-        <div className="flex flex-1 mt-2 sm:mt-4">
-          {/* Left Sidebar - Collapsible on Mobile */}
-          <Sidebar isOpen={isSidebarOpen} />
-
-          {/* Right Main Pane */}
-          <main className="bg-blue-200 flex-1 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
-            <Routes>
-              <Route path="/" element={<DefaultPage />} />
-              <Route path="/classifier" element={<SpaceDebrisClassifier />} />
-            </Routes>
-          </main>
-        </div>
+        {/* Main Content: Full-width Main Pane */}
+        <main className="mt-2 sm:mt-4 bg-blue-200 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
+          <Routes>
+            <Route path="/" element={<DefaultPage />} />
+            <Route path="/classifier" element={<SpaceDebrisClassifier />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   );

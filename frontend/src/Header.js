@@ -1,4 +1,3 @@
-// src/Header.js
 import React from "react";
 import { FaRocket, FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -11,17 +10,16 @@ function Header({ toggleSidebar, isSidebarOpen }) {
         <span className="text-sm sm:text-lg font-bold text-blue-100">
           SpaceDebris
         </span>
-        {/* Dropdown Navigation Button */}
         <button
           onClick={toggleSidebar}
-          className="ml-2 sm:hidden text-blue-200 hover:text-blue-50 focus:outline-none"
+          className="ml-2 text-blue-200 hover:text-blue-50 focus:outline-none"
           aria-label="Toggle Navigation"
         >
           <FaBars className="text-xl" />
         </button>
-        {/* Dropdown Menu */}
+        {/* Dropdown Menu (Bubble Overlay) */}
         {isSidebarOpen && (
-          <div className="absolute left-0 bottom-0 mt-10 w-48 bg-blue-800 text-white rounded-lg shadow-lg animate-slide-down z-10">
+          <div className="absolute left-0 top-full mt-2 w-48 bg-blue-800 text-white rounded-lg shadow-lg animate-slide-down z-10">
             <ul className="p-2">
               <li>
                 <Link
@@ -60,7 +58,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
   );
 }
 
-// Animation for dropdown (in a separate CSS file or inline)
+// Animation for dropdown
 const styles = `
   @keyframes slideDown {
     from {
