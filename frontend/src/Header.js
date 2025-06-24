@@ -33,11 +33,11 @@ function Header({ toggleSidebar, isSidebarOpen }) {
 
               <li>
                 <Link
-                  to="/classifier"
+                  to="/workflow"
                   className="block px-4 py-2 hover:bg-blue-700 rounded transition-colors"
                   onClick={toggleSidebar}
                 >
-                  Space Alien Tracker
+                  Project Workflow
                 </Link>
               </li>
             </ul>

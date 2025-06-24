@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header.js";
 import DefaultPage from "./DefaultPage.js";
 import SpaceDebrisClassifier from "./SpaceDebrisClassifier.js";
+import WorkFlow from "./WorkFlow.js";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<DefaultPage />} />
             <Route path="/classifier" element={<SpaceDebrisClassifier />} />
+            <Route path="/workflow" element={<WorkFlow />} />
           </Routes>
         </main>
       </div>
