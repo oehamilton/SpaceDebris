@@ -9,31 +9,31 @@ const WorkFlow = () => {
   const hyperlinks = [
     {
       shape: "rect",
-      coords: "2630, 85, 2920, 290", // x1,y1,x2,y2 (top-left to bottom-right)
+      coords: "2280, 70, 2530, 250", // x1,y1,x2,y2 (top-left to bottom-right)
       href: "https://spacedebris.netlify.app/",
-      alt: "Space Debris Classifier",
+      alt: "Space Debris Website",
     },
     {
       shape: "rect",
-      coords: "1970, 875, 2300, 1075",
+      coords: "1725, 760,  2015, 920",
       href: "https://github.com/oehamilton/SpaceDebris",
       alt: "GitHub Repository",
     },
     {
       shape: "rect",
-      coords: "355, 485, 660, 710",
+      coords: "300, 430, 590, 600",
       href: "https://console.cloud.google.com/",
       alt: "Google Cloud",
     },
     {
       shape: "rect",
-      coords: "1230, 500, 1555, 700",
+      coords: "1075, 425, 1360, 60",
       href: "https://dashboard.heroku.com/apps",
       alt: "Heroku PaaS",
     },
     {
       shape: "rect",
-      coords: "2600, 510, 2930, 700",
+      coords: "2270, 435, 2550, 615",
       href: "https://app.netlify.com/",
       alt: "Netlify PaaS",
     },
