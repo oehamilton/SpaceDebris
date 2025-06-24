@@ -19,7 +19,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
         </button>
         {/* Dropdown Menu (Bubble Overlay) */}
         {isSidebarOpen && (
-          <div className="absolute left-0 top-full mt-2 w-48 bg-blue-800 text-white rounded-lg shadow-lg animate-slide-down z-10">
+          <div className="absolute left-0 top-full mt-2 w-64 bg-blue-800 text-white rounded-lg shadow-lg animate-slide-down z-10">
             <ul className="p-2">
               <li>
                 <Link
@@ -28,6 +28,16 @@ function Header({ toggleSidebar, isSidebarOpen }) {
                   onClick={toggleSidebar}
                 >
                   Space Debris Classifier
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/classifier"
+                  className="block px-4 py-2 hover:bg-blue-700 rounded transition-colors"
+                  onClick={toggleSidebar}
+                >
+                  Space Alien Tracker
                 </Link>
               </li>
             </ul>
