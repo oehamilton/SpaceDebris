@@ -2,6 +2,8 @@
 import React from "react";
 import { FaBars } from "react-icons/fa"; // Import the hamburger icon
 
+const slideImage = "/Sat_Image_Default.png";
+
 function DefaultPage() {
   return (
     <div className="bg-blue-200 p-6 text-gray-800 shadow-inner">
@@ -13,6 +15,13 @@ function DefaultPage() {
         <FaBars className="inline text-xl align-middle" /> menu to navigate to
         the Space Debris Classifier or other features.
       </p>
+      <div className="relative max-w-full max-h-full">
+        <img
+          src={slideImage}
+          className="w-full h-auto object-contain"
+          alt="Satellite Photo"
+        />
+      </div>
     </div>
   );
 }
