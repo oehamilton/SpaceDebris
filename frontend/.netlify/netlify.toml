@@ -2,7 +2,6 @@ functionsDirectory = "D:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
 functionsDirectoryOrigin = "ui"
 plugins = []
 headers = []
-redirects = []
 
 [functions]
 
@@ -29,3 +28,15 @@ functions = "D:\\CODE\\SpaceDebris\\frontend\\netlify\\functions"
 [build.processing.js]
 
 [build.services]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
