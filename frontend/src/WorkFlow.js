@@ -42,21 +42,22 @@ const WorkFlow = () => {
     },
   ];
 
-  // State to hold scaled hyperlinks and image dimensions
-  const [scaledHyperlinks, setScaledHyperlinks] = useState(initialHyperlinks);
+  // State to hold scaled hyperlinks, image dimensions, and loading status
+  const [scaledHyperlinks, setScaledHyperlinks] = useState([]);
   const [imgDimensions, setImgDimensions] = useState({ width: 0, height: 0 });
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  // Handle image load and window resize to scale coordinates
+  // Handle image load and coordinate scaling
   useEffect(() => {
     const img = new Image();
     img.src = slideImage;
     img.onload = () => {
-      setImgDimensions({ width: img.width, height: img.height });
-    };
-
-    const handleResize = () => {
       const imgElement = document.querySelector('img[useMap="#slideMap"]');
       if (imgElement) {
+        setImgDimensions({
+          width: imgElement.width,
+          height: imgElement.height,
+        });
         const scaleX = imgElement.width / originalWidth;
         const scaleY = imgElement.height / originalHeight;
         const newHyperlinks = initialHyperlinks.map((link) => {
@@ -69,6 +70,31 @@ const WorkFlow = () => {
           };
         });
         setScaledHyperlinks(newHyperlinks);
+        setIsImageLoaded(true);
+      }
+    };
+
+    // Fallback resize handler
+    const handleResize = () => {
+      const imgElement = document.querySelector('img[useMap="#slideMap"]');
+      if (imgElement && !isImageLoaded) {
+        setImgDimensions({
+          width: imgElement.width,
+          height: imgElement.height,
+        });
+        const scaleX = imgElement.width / originalWidth;
+        const scaleY = imgElement.height / originalHeight;
+        const newHyperlinks = initialHyperlinks.map((link) => {
+          const [x1, y1, x2, y2] = link.coords.split(",").map(Number);
+          return {
+            ...link,
+            coords: `${x1 * scaleX},${y1 * scaleY},${x2 * scaleX},${
+              y2 * scaleY
+            }`,
+          };
+        });
+        setScaledHyperlinks(newHyperlinks);
+        setIsImageLoaded(true);
       }
     };
 
@@ -90,51 +116,66 @@ const WorkFlow = () => {
             const imgElement = document.querySelector(
               'img[useMap="#slideMap"]'
             );
-            if (imgElement) {
+            if (imgElement && !isImageLoaded) {
               setImgDimensions({
                 width: imgElement.width,
                 height: imgElement.height,
               });
+              const scaleX = imgElement.width / originalWidth;
+              const scaleY = imgElement.height / originalHeight;
+              const newHyperlinks = initialHyperlinks.map((link) => {
+                const [x1, y1, x2, y2] = link.coords.split(",").map(Number);
+                return {
+                  ...link,
+                  coords: `${x1 * scaleX},${y1 * scaleY},${x2 * scaleX},${
+                    y2 * scaleY
+                  }`,
+                };
+              });
+              setScaledHyperlinks(newHyperlinks);
+              setIsImageLoaded(true);
             }
           }}
         />
-        <map name="slideMap">
-          {scaledHyperlinks.map((link, index) => (
-            <area
-              key={index}
-              shape={link.shape}
-              coords={link.coords}
-              href={link.href}
-              alt={link.alt}
-              title={`${link.alt}: ${link.href}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            />
-          ))}
-        </map>
-        {/* Overlay boxes to highlight clickable areas */}
-        {scaledHyperlinks.map((link, index) => {
-          const [x1, y1, x2, y2] = link.coords.split(",").map(Number);
-          const width = x2 - x1;
-          const height = y2 - y1;
-          return (
-            <div
-              key={`box-${index}`}
-              style={{
-                position: "absolute",
-                left: `${x1}px`,
-                top: `${y1}px`,
-                width: `${width}px`,
-                height: `${height}px`,
-                border: "2px dashed gray",
-                backgroundColor: "rgba(177, 150, 150, 0.1)", // Semi-transparent red
-                pointerEvents: "none", // Prevent interference with clicks
-                boxSizing: "border-box",
-              }}
-              title={link.alt} // Optional: shows region name on hover over box
-            />
-          );
-        })}
+        {isImageLoaded && (
+          <map name="slideMap">
+            {scaledHyperlinks.map((link, index) => (
+              <area
+                key={index}
+                shape={link.shape}
+                coords={link.coords}
+                href={link.href}
+                alt={link.alt}
+                title={`${link.alt}: ${link.href}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            ))}
+          </map>
+        )}
+        {isImageLoaded &&
+          scaledHyperlinks.map((link, index) => {
+            const [x1, y1, x2, y2] = link.coords.split(",").map(Number);
+            const width = x2 - x1;
+            const height = y2 - y1;
+            return (
+              <div
+                key={`box-${index}`}
+                style={{
+                  position: "absolute",
+                  left: `${x1}px`,
+                  top: `${y1}px`,
+                  width: `${width}px`,
+                  height: `${height}px`,
+                  border: "2px dashed gray",
+                  backgroundColor: "rgba(162, 147, 147, 0.1)",
+                  pointerEvents: "none",
+                  boxSizing: "border-box",
+                }}
+                title={link.alt}
+              />
+            );
+          })}
       </div>
     </div>
   );
