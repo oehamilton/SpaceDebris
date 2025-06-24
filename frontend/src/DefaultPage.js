@@ -1,5 +1,6 @@
 // src/DefaultPage.js
 import React from "react";
+import { FaBars } from "react-icons/fa"; // Import the hamburger icon
 
 function DefaultPage() {
   return (
@@ -8,8 +9,9 @@ function DefaultPage() {
         Welcome to SpaceDebris
       </h2>
       <p className="text-lg">
-        This is the default page. Use the sidebar to navigate to the Space
-        Debris Classifier or other features.
+        This is the default page. Use the{" "}
+        <FaBars className="inline text-xl align-middle" /> menu to navigate to
+        the Space Debris Classifier or other features.
       </p>
     </div>
   );
