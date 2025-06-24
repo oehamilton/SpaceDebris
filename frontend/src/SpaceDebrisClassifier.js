@@ -118,8 +118,8 @@ function SpaceDebrisClassifier() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-md">
+    <div className="min-h-screen bg-gray-100 p-2 sm:p-4">
+      <div className="max-w-4xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-900 text-center">
           <a
             href="https://github.com/oehamilton/SpaceDebris"
@@ -157,7 +157,7 @@ function SpaceDebrisClassifier() {
             <img
               src={imagePreview}
               alt="Preview"
-              className="max-w-xs max-h-64 object-contain rounded-lg shadow-md mx-auto"
+              className="max-w-full max-h-64 object-contain rounded-lg shadow-md mx-auto"
             />
           </div>
         )}
@@ -168,68 +168,69 @@ function SpaceDebrisClassifier() {
             <h3 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2 text-center">
               Prediction Result
             </h3>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col md:flex-row gap-6">
               {/* Image and Prediction */}
               <div className="flex-1 p-2 sm:p-4">
                 <img
                   src={imagePreview}
                   alt="Uploaded"
-                  className="max-w-xs max-h-64 object-contain rounded-lg shadow-md mb-2 sm:mb-4 mx-auto"
+                  className="max-w-full max-h-64 object-contain rounded-lg shadow-md mb-2 sm:mb-4 mx-auto"
                 />
-                <p className="text-sm sm:text-base">
-                  <strong>Label:</strong> {prediction.label}
-                </p>
-                <p className="text-sm sm:text-base">
-                  <strong>Probability:</strong>{" "}
-                  {(prediction.probability * 100).toFixed(2)}%
-                </p>
-                <p className="text-sm sm:text-base">
-                  <strong>Class:</strong> {prediction.class}
-                </p>
+                <div className="space-y-1">
+                  <p className="text-sm sm:text-base">
+                    <strong>Label:</strong> {prediction.label}
+                  </p>
+                  <p className="text-sm sm:text-base">
+                    <strong>Probability:</strong>{" "}
+                    {(prediction.probability * 100).toFixed(2)}%
+                  </p>
+                  <p className="text-sm sm:text-base">
+                    <strong>Class:</strong> {prediction.class}
+                  </p>
+                </div>
               </div>
               {/* Image Stats */}
               {imageStats && (
-                <div className="flex-1 p-2 sm:p-4">
+                <div className="flex-1 p-2 sm:p-4 overflow-x-auto">
                   <h4 className="text-lg sm:text-xl font-semibold text-blue-800 mb-2">
                     Image Stats
                   </h4>
-                  <p className="text-sm sm:text-base">
-                    <strong>Size:</strong> {imageStats.size}
-                  </p>
-                  <p className="text-sm sm:text-base">
-                    <strong>Dimensions:</strong> {imageStats.dimensions}
-                  </p>
-                  <p className="text-sm sm:text-base">
-                    <strong>Total Pixels:</strong>{" "}
-                    {imageStats.pixelCount.toLocaleString()}
-                  </p>
-                  <h5 className="font-semibold mt-2 text-sm sm:text-base">
-                    AI Processing:
-                  </h5>
-                  <p className="text-sm sm:text-base">
-                    <strong>Resized:</strong> {imageStats.aiProcessing.resized}
-                  </p>
-                  <p className="text-sm sm:text-base">
-                    <strong>Normalized:</strong>{" "}
-                    {imageStats.aiProcessing.normalized}
-                  </p>
-                  {location ? (
-                    <div className="mt-2">
-                      <h5 className="font-semibold text-sm sm:text-base">
-                        Location (GPS):
-                      </h5>
-                      <p className="text-sm sm:text-base">
-                        <strong>Latitude:</strong> {location.latitude}°
-                      </p>
-                      <p className="text-sm sm:text-base">
-                        <strong>Longitude:</strong> {location.longitude}°
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="mt-2 italic text-gray-600 text-sm sm:text-base">
-                      No location data available.
+                  <div className="space-y-1 text-sm sm:text-base">
+                    <p>
+                      <strong>Size:</strong> {imageStats.size}
                     </p>
-                  )}
+                    <p>
+                      <strong>Dimensions:</strong> {imageStats.dimensions}
+                    </p>
+                    <p>
+                      <strong>Total Pixels:</strong>{" "}
+                      {imageStats.pixelCount.toLocaleString()}
+                    </p>
+                    <h5 className="font-semibold mt-2">AI Processing:</h5>
+                    <p>
+                      <strong>Resized:</strong>{" "}
+                      {imageStats.aiProcessing.resized}
+                    </p>
+                    <p>
+                      <strong>Normalized:</strong>{" "}
+                      {imageStats.aiProcessing.normalized}
+                    </p>
+                    {location ? (
+                      <div className="mt-2">
+                        <h5 className="font-semibold">Location (GPS):</h5>
+                        <p>
+                          <strong>Latitude:</strong> {location.latitude}°
+                        </p>
+                        <p>
+                          <strong>Longitude:</strong> {location.longitude}°
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="mt-2 italic text-gray-600">
+                        No location data available.
+                      </p>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
