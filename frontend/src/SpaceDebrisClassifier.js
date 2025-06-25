@@ -132,6 +132,12 @@ function SpaceDebrisClassifier() {
             Space Debris Classifier
           </a>
         </h2>
+        <h3 className="text-lg sm:text-xl font-semibold text-blue-800 mb-4 text-center">
+          Upload an Image of Space Debris for Classification
+        </h3>
+        <h4 className="text-sm sm:text-base text-gray-600 mb-4 text-center">
+          Supported formats: PNG, JPEG (max size: 10 MB)
+        </h4>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="file"
