@@ -5,6 +5,9 @@
         },
         {
             "path": "../AdminPortal"
+        },
+        {
+            "path": "../QuantumSim"
         }
     ],
     "settings": {

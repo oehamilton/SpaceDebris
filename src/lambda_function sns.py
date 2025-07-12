@@ -55,7 +55,7 @@ def parse_ses_event(event):
         tuple: (to_address, from_address, subject)
     """
     try:
-        logger.debug(f"Received event: {json.dumps(event, indent=2)}")
+        logger.debug("Starting Parse Script")
         # Define email-to-phone number mappings
         email_to_phone = {
             "oehamilton": "19402063925",
@@ -95,10 +95,25 @@ def parse_ses_event(event):
         to_number_list = [email_to_phone.get(address) for address in to_addresses_list if address in email_to_phone]
         logger.info(f"Generated to_number_list: {to_number_list}")
 
+        #If email recipient is a 10 digit phone number, add it directly
+        to_number_list += [address for address in to_addresses_list if re.match(r'^\d{10}$', address)]
+        #All numbers in the list should be 1 plus the 10 digit phone number
+        to_number_list = [f"1{number}" for number in to_number_list if number and re.match(r'^\d{10}$', number)]
+        logger.info(f"Numbers in to_number_list: {to_number_list}")
+        #All the numbers in the list should be unique
+        to_number_list = list(set(to_number_list))  
+        # Log the final list of phone numbers
+        logger.info(f"Final to_number_list: {to_number_list}")
+        # If no valid phone numbers were found, return None
+        if not to_number_list:
+            logger.warning("No valid phone numbers found in the email addresses.")
+            return None, None, None 
+
         # Log unmapped addresses for debugging
         unmapped = [address for address in to_addresses_list if address not in email_to_phone]
         if unmapped:
             logger.warning(f"Unmapped email addresses: {unmapped}")
+
 
         return to_number_list, from_address, subject
 
@@ -109,8 +124,31 @@ def parse_ses_event(event):
 def lambda_handler(event, context):
     from_number= '12085797066' 
     to_number = '19402063925'
-    logger.info(f"Event: {event}")
-    to_number_list, from_addr, subj = parse_ses_event(event)
+    logger.info("START of Lambda CODE")
+
+    logger.info(f"The Event: {event}")
+    logger.info("Parse Event")
+
+    try:
+        if 'Records' in event and event['Records'][0].get('EventSource') == 'aws:sns':
+            logger.info("Detected SNS event, extracting SES event from Message")
+            sns_message = event['Records'][0]['Sns']['Message']
+            # Parse the JSON string in the Message field
+            ses_event = json.loads(sns_message)
+        else:
+            logger.info("Assuming direct SES event")
+            ses_event = event
+    except (KeyError, json.JSONDecodeError) as e:
+        logger.error(f"Error processing event: {str(e)}")
+        return {
+            'statusCode': 400,
+            'body': f'Invalid event format: {str(e)}'
+        }
+
+    logger.info("Parse Event")
+    to_number_list, from_addr, subj = parse_ses_event(ses_event)
+    
+    #to_number_list, from_addr, subj = parse_ses_event(event)
 
     message = subj
 
