@@ -4,6 +4,15 @@
             "path": "."
         },
         {
+<<<<<<< HEAD
+=======
+            "path": "../AdminPortal"
+        },
+        {
+            "path": "../QuantumSim"
+        },
+        {
+>>>>>>> bc5dc5544b265bd681fb0570f07c9e499fb7308f
             "path": "../NeuraCraft"
         }
     ],
