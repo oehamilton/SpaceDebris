@@ -1,10 +1,10 @@
-// src/App.js
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header.js";
 import DefaultPage from "./DefaultPage.js";
 import SpaceDebrisClassifier from "./SpaceDebrisClassifier.js";
 import WorkFlow from "./WorkFlow.js";
+import "./App.css"; // Import the CSS file
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -20,7 +20,7 @@ function App() {
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {/* Main Content: Full-width Main Pane */}
-        <main className="flex-1 bg-blue-700 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
+        <main className="flex-1 bg-blue-700 border border-blue-300 rounded-lg shadow-md overflow-y-auto custom-scrollbar">
           <Routes>
             <Route path="/" element={<DefaultPage />} />
             <Route path="/classifier" element={<SpaceDebrisClassifier />} />
