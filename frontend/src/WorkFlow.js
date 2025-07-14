@@ -105,7 +105,7 @@ const WorkFlow = () => {
   }, [slideImage, originalWidth, originalHeight]);
 
   return (
-    <div className="w-full h-full flex justify-center items-center bg-blue-200 p-4 relative">
+    <div className="w-full h-full flex justify-center items-center bg-gray-900 p-4 relative">
       <div className="relative max-w-full max-h-full">
         <img
           src={slideImage}

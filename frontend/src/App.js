@@ -20,7 +20,7 @@ function App() {
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {/* Main Content: Full-width Main Pane */}
-        <main className="flex-1 bg-blue-200 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
+        <main className="flex-1 bg-blue-700 border border-blue-300 rounded-lg shadow-md overflow-y-auto">
           <Routes>
             <Route path="/" element={<DefaultPage />} />
             <Route path="/classifier" element={<SpaceDebrisClassifier />} />
