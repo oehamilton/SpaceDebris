@@ -186,7 +186,7 @@ def parse_ses_event(event):
         email_to_phone = {
             "oehamilton": "19402063925",
             "a.castillo": "16822068114",
-            "kevin.buckley.texas": "18175839958"
+            "kevin.buckley.texas": "18175839985"
             # Add more mappings here as needed, e.g.,
             # "another.user": "12345678901",
         }
