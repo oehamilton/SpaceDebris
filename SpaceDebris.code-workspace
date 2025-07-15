@@ -11,6 +11,9 @@
         },
         {
             "path": "../NeuraCraft"
+        },
+        {
+            "path": "../project8x"
         }
     ],
     "settings": {

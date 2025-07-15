@@ -6,7 +6,7 @@ model/*.keras
 model/*.png
 venv/
 node_modules/
-
+zips/*
 # Netlify-specific
 .netlify/
 .netlify/cache/

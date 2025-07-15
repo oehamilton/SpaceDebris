@@ -18,7 +18,7 @@ input[type="file"] {
 
 button {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #090a0a;
   color: white;
   border: none;
   border-radius: 5px;
@@ -26,7 +26,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #013369;
 }
 
 h2 {
@@ -36,4 +36,30 @@ h2 {
 p {
   font-size: 1.1em;
   margin: 5px 0;
+}
+
+/* Custom scrollbar styling for the main element */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px; /* Width of the vertical scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000000; /* Black scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff0000; /* Red thumb */
+  border-radius: 6px; /* Rounded edges for the thumb */
+  min-height: 20px; /* Minimum height for usability */
+  max-height: 30px; /* Limit thumb height to 10% of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cc0000; /* Slightly darker red on hover */
+}
+
+/* Firefox scrollbar support */
+.custom-scrollbar {
+  scrollbar-color: #ff0000 #000000; /* Red thumb, black track */
+  scrollbar-width: thin; /* Thin scrollbar for consistency */
 }

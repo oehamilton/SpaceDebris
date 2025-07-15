@@ -118,24 +118,24 @@ function SpaceDebrisClassifier() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-2 sm:p-4">
+    <div className="min-h-screen bg-gray-900 p-2 sm:p-4">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-blue-900 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-100 text-center">
           <a
             href="https://github.com/oehamilton/SpaceDebris"
             target="_blank"
             title="Click to See Code"
             rel="noopener noreferrer"
             aria-label="Space Debris Classifier GitHub repository (opens in new tab)"
-            className="text-blue-600 hover:underline"
+            className="text-gray-200 hover:underline"
           >
             Space Debris Classifier
           </a>
         </h2>
-        <h3 className="text-lg sm:text-xl font-semibold text-blue-800 mb-4 text-center">
+        <h3 className="text-lg sm:text-xl font-semibold text-gray-200 mb-4 text-center">
           Upload an Image of Space Debris for Classification
         </h3>
-        <h4 className="text-sm sm:text-base text-gray-600 mb-4 text-center">
+        <h4 className="text-sm sm:text-base text-gray-200 mb-4 text-center">
           Supported formats: PNG, JPEG (max size: 10 MB)
         </h4>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -143,11 +143,11 @@ function SpaceDebrisClassifier() {
             type="file"
             accept="image/png, image/jpeg"
             onChange={handleImageChange}
-            className="w-full text-sm sm:text-base p-2 border rounded mb-2 sm:mb-4 text-gray-700"
+            className="w-full text-sm sm:text-base p-2 border rounded mb-2 sm:mb-4 text-gray-200"
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition-colors min-h-[48px] min-w-[48px] text-sm sm:text-base"
+            className="bg-gray-800 text-white px-6 py-3 rounded hover:bg-gray-700 transition-colors min-h-[48px] text-sm sm:text-base"
             disabled={!image}
           >
             Predict
@@ -157,7 +157,7 @@ function SpaceDebrisClassifier() {
         {/* Image Preview Before Prediction */}
         {imagePreview && !prediction && (
           <div className="mt-4">
-            <h3 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2 text-center">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-2 text-center">
               Image Preview
             </h3>
             <img
@@ -171,10 +171,10 @@ function SpaceDebrisClassifier() {
         {/* Post-Prediction Display */}
         {prediction && imagePreview && (
           <div className="mt-4">
-            <h3 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2 text-center">
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-200 mb-2 text-center">
               Prediction Result
             </h3>
-            <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex flex-col md:flex-row gap-6 text-gray-300">
               {/* Image and Prediction */}
               <div className="flex-1 p-2 sm:p-4">
                 <img
@@ -198,10 +198,10 @@ function SpaceDebrisClassifier() {
               {/* Image Stats */}
               {imageStats && (
                 <div className="flex-1 p-2 sm:p-4 overflow-x-auto">
-                  <h4 className="text-lg sm:text-xl font-semibold text-blue-800 mb-2">
+                  <h4 className="text-lg sm:text-xl font-semibold text-gray-200 mb-2">
                     Image Stats
                   </h4>
-                  <div className="space-y-1 text-sm sm:text-base">
+                  <div className="space-y-1 text-sm sm:text-base text-gray-300">
                     <p>
                       <strong>Size:</strong> {imageStats.size}
                     </p>
@@ -223,7 +223,9 @@ function SpaceDebrisClassifier() {
                     </p>
                     {location ? (
                       <div className="mt-2">
-                        <h5 className="font-semibold">Location (GPS):</h5>
+                        <h5 className="font-semibold" text-gray-300>
+                          Location (GPS):
+                        </h5>
                         <p>
                           <strong>Latitude:</strong> {location.latitude}°
                         </p>
@@ -232,7 +234,7 @@ function SpaceDebrisClassifier() {
                         </p>
                       </div>
                     ) : (
-                      <p className="mt-2 italic text-gray-600">
+                      <p className="mt-2 italic text-gray-300">
                         No location data available.
                       </p>
                     )}
