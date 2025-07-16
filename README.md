@@ -34,4 +34,8 @@ A machine learning project to classify satellite images for space debris detecti
 
 - [x] Initialized repo and project structure
 - [x] Data preprocessing
-- [x] CNN model training (in progress)
+- [x] CNN model training
+- [x] Flask API Developed
+- [x] React Front End Website Developed
+- [x] Fask API deployed to Heroku
+- [x] React Website deployed to Netlify 
