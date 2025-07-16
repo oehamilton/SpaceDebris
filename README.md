@@ -38,4 +38,5 @@ A machine learning project to classify satellite images for space debris detecti
 - [x] Flask API Developed
 - [x] React Front End Website Developed
 - [x] Fask API deployed to Heroku
-- [x] React Website deployed to Netlify 
+- [x] React Website deployed to Netlify
+- [ ] Webiste vistor logged to database
