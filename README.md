@@ -1,5 +1,7 @@
 # SpaceDebris
 
+https://spacedebris.netlify.app/
+
 Satellite Image Classification for Space Debris Detection
 
 Building a machine learning model to classify satellite images and detect space debris is a critical challenge in space exploration. The project uses Python, TensorFlow, and AWS to process and classify images, demonstrating your ability to develop and deploy AI-driven solutions. This project is relevant to space tech companies (e.g., SpaceX, Planet Labs) and can be adapted to energy (e.g., detecting defects in solar panels) or sciences (e.g., environmental monitoring).
@@ -32,4 +34,9 @@ A machine learning project to classify satellite images for space debris detecti
 
 - [x] Initialized repo and project structure
 - [x] Data preprocessing
-- [x] CNN model training (in progress)
+- [x] CNN model training
+- [x] Flask API Developed
+- [x] React Front End Website Developed
+- [x] Fask API deployed to Heroku
+- [x] React Website deployed to Netlify
+- [ ] Webiste vistor logged to database
