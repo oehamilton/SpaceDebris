@@ -17,6 +17,9 @@
         },
         {
             "path": "../Email2SMS"
+        },
+        {
+            "path": "../SpaceSim"
         }
     ],
     "settings": {
