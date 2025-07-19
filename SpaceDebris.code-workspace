@@ -20,6 +20,9 @@
         },
         {
             "path": "../SpaceSim"
+        },
+        {
+            "path": "../GrokMail"
         }
     ],
     "settings": {
