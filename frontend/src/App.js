@@ -15,12 +15,12 @@ function App() {
 
   return (
     <Router>
-      <div className="h-screen bg-space-blue p-2 sm:p-4 flex flex-col gap-2 sm:gap-4 overflow-hidden">
-        {/* Top Pane: Header with Navigation Toggle */}
+      <div className="h-screen bg-gray-900 p-2 sm:p-4 flex flex-col gap-2 sm:gap-4 overflow-hidden">
+        {/* Top Pane: Header with Navigation Toggle bg-gray-900 p-6 text-gray-200 shadow-inner*/}
         <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
         {/* Main Content: Full-width Main Pane */}
-        <main className="flex-1 bg-blue-700 border border-blue-300 rounded-lg shadow-md overflow-y-auto custom-scrollbar">
+        <main className="flex-1 bg-gray-900 border rounded-lg shadow-md overflow-y-auto custom-scrollbar">
           <Routes>
             <Route path="/" element={<DefaultPage />} />
             <Route path="/classifier" element={<SpaceDebrisClassifier />} />
