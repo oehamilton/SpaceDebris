@@ -23,6 +23,9 @@
         },
         {
             "path": "../GrokMail"
+        },
+        {
+            "path": "../BASE"
         }
     ],
     "settings": {
