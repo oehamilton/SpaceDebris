@@ -1,8 +1,13 @@
 # SpaceDebris
 
+This repository is a first exercise in training and deploying a small convolutional neural network, not an operational space-debris detection system. Imagery that resolves individual on-orbit fragments such as bolts or heat-shield tiles was not available at useful resolution, and catalog tracking of debris is performed primarily with radar and specialized optical sensors that record unresolved points or streaks rather than nadir Earth-observation RGB. Sentinel-2 land tiles were therefore used as a stand-in, with synthetic high-contrast shapes added as proxy labels so the full loop—preprocessing, training a compact TensorFlow classifier, serving it from Flask, and presenting results in a React client—could be completed end to end. The work showed that a narrow visual task can run in a very small model and that the binding constraint is labeled data that matches the actual sensor. That limitation is what the project is meant to document, and it is the reason later work turned toward task-specific models small enough to run on drones, robots, and other edge devices, trained on an operator’s own examples rather than on unavailable catalog imagery
+
 https://spacedebris.netlify.app/
+*The api to the TinyLM has be decomissioned.
 
 Satellite Image Classification for Space Debris Detection
+
+
 
 Building a machine learning model to classify satellite images and detect space debris is a critical challenge in space exploration. The project uses Python, TensorFlow, and AWS to process and classify images, demonstrating your ability to develop and deploy AI-driven solutions. This project is relevant to space tech companies (e.g., SpaceX, Planet Labs) and can be adapted to energy (e.g., detecting defects in solar panels) or sciences (e.g., environmental monitoring).
 
